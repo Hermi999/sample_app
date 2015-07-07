@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  # Maps a get request to  static_pages/home to the "home" action in the StaticPages Controller (file: /app/controllers/static_pages_controller.rb)
   get 'static_pages/home'
 
+  # Maps a get request to  static_pages/help to the "help" action in the StaticPages Controller (file: /app/controllers/static_pages_controller.rb)
   get 'static_pages/help'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
