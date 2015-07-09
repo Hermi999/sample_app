@@ -58,5 +58,5 @@ def resource_tests(resource)
 end
 
 guard 'livereload' do
-  watch %r{^.*\.(html|css|js|png|jpg|scss|erb)$}
+  watch %r{^.*\.(html|css|js|png|jpg|scss|erb|coffee)$}
 end
