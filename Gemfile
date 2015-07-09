@@ -19,7 +19,10 @@ gem 'jbuilder', 	'2.2.3'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', 		'0.4.0', group: :doc
 
-
+group :development do
+  gem 'guard-livereload', '2.3.0'
+  gem 'rack-livereload'
+end
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record

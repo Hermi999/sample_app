@@ -56,3 +56,7 @@ end
 def resource_tests(resource)
   integration_tests(resource) << controller_test(resource)
 end
+
+guard 'livereload' do
+  watch %r{^.*\.(html|css|js|png|jpg|scss)$}
+end
