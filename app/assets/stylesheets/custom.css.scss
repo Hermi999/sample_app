@@ -65,3 +65,29 @@ p {
   font-size:1.1em;
   line-heigt:1.7em;
 }
+
+
+/* footer */
+footer{
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+}
+
+footer a{
+  color: #555;
+}
+
+footer small {
+  float: left;
+}
+
+footer ul {
+  float: right;
+  list-style: none;
+}
+
+footer ul li {
+  float: left;
+  margin-left: 15px;
+}
