@@ -8,13 +8,14 @@
 	<a href="http://rubyonrails.org/">Ruby on Rails</a>.
 	This is the sample application for the tutorial.
 
-
-  <%= gravatar_for User.first, size:30 %>
-  <%= gravatar_for User.first, size:50 %>
-  <%= gravatar_for User.first %>
-  <%= gravatar_for User.first, size:120 %>
-  <%= gravatar_for User.first, size:150 %>
-  <%= gravatar_for User.first, size:180 %>
-  <%= gravatar_for User.first, size:210 %>
-  <%= gravatar_for User.first, size:240 %>
+  <% if User.exists? %>
+    <%= gravatar_for User.first, size:30 %>
+    <%= gravatar_for User.first, size:50 %>
+    <%= gravatar_for User.first %>
+    <%= gravatar_for User.first, size:120 %>
+    <%= gravatar_for User.first, size:150 %>
+    <%= gravatar_for User.first, size:180 %>
+    <%= gravatar_for User.first, size:210 %>
+    <%= gravatar_for User.first, size:240 %>
+  <% end %>
 </p>
