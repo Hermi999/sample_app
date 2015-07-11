@@ -15,6 +15,22 @@ Rails.application.routes.draw do
 
   get 'signup' => 'users#new'
 
+  # Ressources Method adds all actions and routes needed for RESTful Users
+  # ressurce:
+  # HTTP-Request        Action    Route           Purpuse
+  # ---------------------------------------------------------------------------
+  # GET /users          index     users_path      page to list all users
+  # GET /users/id       show      user_path(user) page to show a user
+  # Get /users/new      new       new_user_path   page to make a new user (=signup)
+  # POST /users         create    users_path      create a new user
+  # GET  /users/id/edit edit      edit_user_path(user)  edit user with id=x
+  # PATCH /users/id     update    user_path(user) update user
+  # DELETE /users/id    destroy   user_path(user) delete user
+  resources :users
+
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
