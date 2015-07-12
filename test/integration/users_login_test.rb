@@ -11,7 +11,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     # 1. Visit login page
     get login_path
     # 2. Verify that new sessions form renders properly
-    assert_template  'sessions/new'
+    assert_template 'sessions/new'
     # 3. Post the sessions path with an invalid params hash
     post login_path, { session: { email: 'a@a.at', password: 'abc' } }
     # 4. Verify that the new sessions form gets rerendered & a flash is shown
@@ -25,7 +25,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
   test 'login with valid information followed by a logout' do
     get login_path
-    post login_path, session: {email: @user.email, password: 'passwort'}
+    post login_path, session: { email: @user.email, password: 'passwort' }
     assert is_logged_in?
     assert_redirected_to @user
     follow_redirect!

@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       # log the user in
       log_in user
+      remember user     # Helper: create permanent session tokens (Cookies)
       redirect_to user
     else
       # create an error message and show login page (session new) again

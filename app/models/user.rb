@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i    # constant
   # VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+[.][a-z]+\z/i
 
+  attr_accessor :remember_token
+
   before_save { self.email = email.downcase }   # self keyword is optional
                                                 # on right-hand side
 
@@ -19,5 +21,30 @@ class User < ActiveRecord::Base
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
+  end
+
+  # generate random base64 token as remember-token
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  # Creates a ramdom token and stores it in the database for use in
+  # persistent sessions
+  def remember
+    # generate random remember-token
+    self.remember_token = User.new_token
+
+    # save remember-token into database with the user
+    update_attribute :remember_digest, User.digest(remember_token)
+  end
+
+  # Returns true if the given token matches the digest
+  def authenticated?(remember_token)
+    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+
+  # Forgets a user (if he is remembered) by setting db-field to nil
+  def forget
+    update_attribute :remember_digest, nil
   end
 end
