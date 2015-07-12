@@ -7,7 +7,12 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       # log the user in
       log_in user
-      remember user     # Helper: create permanent session tokens (Cookies)
+
+      # Does the user want's to be remembered?
+      # Yes:  Helper: create permanent session tokens (Cookies)
+      # No:   Delete the permanent cookies and field in database. Now he won't
+      # be remembered in any browser he used this feature
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       redirect_to user
     else
       # create an error message and show login page (session new) again

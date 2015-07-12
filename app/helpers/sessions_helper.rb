@@ -4,7 +4,7 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
-  # Creates a ramdom token and stores it in the database
+  # Creates a random token and stores it in the database
   # Creates two permanent (20 years) cookies for storage in the users browser
   # The user_id cookie is always the same for the user and gets encrypted, so
   # that the actual user.id is never exposed
@@ -41,6 +41,8 @@ module SessionsHelper
   end
 
   # Returns true if the user is logged in, false otherwise
+  # This method instantiates the whole temporary and permanent "remember me"
+  # authentification process & is called in the _header,html.erb partial
   def logged_in?
     !current_user.nil?
   end
