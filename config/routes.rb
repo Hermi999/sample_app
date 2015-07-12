@@ -15,6 +15,12 @@ Rails.application.routes.draw do
 
   get 'signup' => 'users#new'
 
+  # While with 'resources :users' all Rest-Routes are created (see below),
+  # we need for the Session resource only a subset of named routes
+  get    'login'  => 'sessions#new'       # page for a new session (login form)
+  post   'login'  => 'sessions#create'    # create a new session (login)
+  delete 'logout' => 'sessions#destroy'   # delete a session (log out)
+
   # Ressources Method adds all actions and routes needed for RESTful Users
   # ressurce:
   # HTTP-Request        Action    Route           Purpuse
