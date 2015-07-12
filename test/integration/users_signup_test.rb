@@ -98,12 +98,18 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     get signup_path
     assert_difference 'User.count', 1 do
       post_via_redirect users_path, user:  {
-                                name:                 'Hermann',
-                                email:                'a@a.at',
-                                password:             'dasisteintest',
-                                password_confirmation:'dasisteintest'
-                              }
+                                    name:                 'Hermann',
+                                    email:                'a@a.at',
+                                    password:             'dasisteintest',
+                                    password_confirmation:'dasisteintest'
+                                  }
     end
     assert_template 'users/show'
+
+    # check if flash message is displayed
+    assert_not (flash == nil)
+
+    # check if flash shows success message (maybe already too much)
+    assert flash[:success]
   end
 end
