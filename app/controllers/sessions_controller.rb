@@ -6,6 +6,8 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       # log the user in
+      log_in user
+      redirect_to user
     else
       # create an error message and show login page (session new) again
       flash.now[:danger] = 'Invalid email/password combination'
