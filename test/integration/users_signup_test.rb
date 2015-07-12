@@ -107,7 +107,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_template 'users/show'
 
     # check if flash message is displayed
-    assert_not (flash == nil)
+    assert_not_nil flash
 
     # check if flash shows success message (maybe already too much)
     assert flash[:success]
