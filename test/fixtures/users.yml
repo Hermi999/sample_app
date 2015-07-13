@@ -3,3 +3,8 @@ hermann:
   name: Hermann Wagner
   email: hermann.wagner01@gmx.at
   password_digest: <%= User.digest('passwort') %>
+
+lini:
+  name: Mauso Lini
+  email: mauso@lini.at
+  password_digest: <%= User.digest('passwort') %>

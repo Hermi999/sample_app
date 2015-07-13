@@ -40,6 +40,11 @@ module SessionsHelper
     end
   end
 
+  # Returns true if the given user is the current user
+  def current_user?(user)
+    user == current_user
+  end
+
   # Returns true if the user is logged in, false otherwise
   # This method instantiates the whole temporary and permanent "remember me"
   # authentification process & is called in the _header,html.erb partial
@@ -59,5 +64,17 @@ module SessionsHelper
     forget(current_user)      # retrieve current user and then forget him
     session.delete(:user_id)  # delete temporary session cookie
     @current_user = nil       # set current user to nil
+  end
+
+  # Redirects to stored location (or the default)
+  def redirect_back_or(default)
+    redirect_to(session[:forwarding_url] || default)
+    # will be executed because redirect just happens after the return
+    session.delete(:forwarding_url)
+  end
+
+  # Stores the URL trying to be accessed
+  def store_location
+    session[:forwarding_url] = request.url if request.get?
   end
 end

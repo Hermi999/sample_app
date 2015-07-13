@@ -1,8 +1,18 @@
 class UsersController < ApplicationController
   # Before filters:
-  # Before editing or updating action is executed, the logged_in_user method
+  # Before one of the given actions is executed, the logged_in_user method
   # has to return true (user is looged in)
-  before_action :logged_in_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update]
+
+  # Before editing or updating action is executed, the currect_user method
+  # has to return true (correct user is logged in)
+  before_action :correct_user, only: [:edit, :update]
+
+
+  # Action for showing all the registered users on one page (with pagination)
+  def index
+    @users = User.all
+  end
 
   # Action for showing the the user profile. params[:id] is extracted from
   # the URL:  '.../users/:id'
@@ -50,7 +60,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = 'Updated your data successfully!'
-      debugger
       redirect_to @user   # = redirect_to user_url(@user)
     else
       render 'edit'
@@ -68,10 +77,19 @@ class UsersController < ApplicationController
                                     :password, :password_confirmation)
     end
 
+    # Verify if a user is logged in. Otherwise redirect.
     def logged_in_user
       unless logged_in?
+        store_location
         flash[:danger] = 'Please log in first!'
         redirect_to login_url
       end
+    end
+
+    # Verify if user who want's to access the page, is the logged-in user
+    # Otherwise redirect.
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user)
     end
 end

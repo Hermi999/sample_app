@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       # No:   Delete the permanent cookies and field in database. Now he won't
       # be remembered in any browser he used this feature
       params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-      redirect_to @user
+      redirect_back_or @user
     else
       # create an error message and show login page (session new) again
       flash.now[:danger] = 'Invalid email/password combination'
