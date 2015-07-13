@@ -18,6 +18,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    # Action for editing the user. The formular in the view get's automatically
+    # filled with data from the @user membarvariable, because we are using
+    # the form_for Rails method.
+    @user = User.find(params[:id])
+  end
+
   private
 
     def user_params
