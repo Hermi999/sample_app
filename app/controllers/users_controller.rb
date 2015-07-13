@@ -1,18 +1,25 @@
 class UsersController < ApplicationController
   # Before filters:
-  # Before one of the given actions is executed, the logged_in_user method
-  # has to return true (user is looged in)
-  before_action :logged_in_user, only: [:index, :edit, :update]
+  # Restrict actions which are only for a logged in user
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
 
-  # Before editing or updating action is executed, the currect_user method
-  # has to return true (correct user is logged in)
+  # Restrict action which are only for the correct user and not for other users
   before_action :correct_user, only: [:edit, :update]
 
+  # Restrict actions which are only for admins
+  before_action :admin_user, only: :destroy
 
   # Action for showing all the registered users on one page (with pagination)
   def index
     # params[:page] ... is generated automatically by will_paginate
     @users = User.paginate(page: params[:page])
+  end
+
+  # Remove user from database - only for admins!
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = 'User deleted'
+    redirect_to users_url
   end
 
   # Action for showing the the user profile. params[:id] is extracted from
@@ -92,5 +99,10 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_url) unless current_user?(@user)
+    end
+
+    # Verify if the user is an admin
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
     end
 end

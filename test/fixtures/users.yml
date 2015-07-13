@@ -16,6 +16,7 @@ hermann:
   name: Hermann Wagner
   email: hermann.wagner01@gmx.at
   password_digest: <%= User.digest('passwort') %>
+  admin: true
 
 lini:
   name: Mauso Lini
