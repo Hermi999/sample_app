@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+  # Before filters:
+  # Before editing or updating action is executed, the logged_in_user method
+  # has to return true (user is looged in)
+  before_action :logged_in_user, only: [:edit, :update]
+
   # Action for showing the the user profile. params[:id] is extracted from
   # the URL:  '.../users/:id'
   def show
@@ -61,5 +66,12 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit( :name, :email,
                                     :password, :password_confirmation)
+    end
+
+    def logged_in_user
+      unless logged_in?
+        flash[:danger] = 'Please log in first!'
+        redirect_to login_url
+      end
     end
 end
