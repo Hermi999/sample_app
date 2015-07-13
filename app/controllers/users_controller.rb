@@ -11,7 +11,8 @@ class UsersController < ApplicationController
 
   # Action for showing all the registered users on one page (with pagination)
   def index
-    @users = User.all
+    # params[:page] ... is generated automatically by will_paginate
+    @users = User.paginate(page: params[:page])
   end
 
   # Action for showing the the user profile. params[:id] is extracted from

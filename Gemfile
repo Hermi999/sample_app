@@ -4,6 +4,11 @@ source 'https://rubygems.org'
 gem 'rails', 		'4.2.2'
 # Hash function for passwords
 gem 'bcrypt',   '3.1.7'
+# Create Sample data (users) for database
+gem 'faker',    '1.4.2'
+# Gems for paginatino on the user index page
+gem 'will_paginate',  '3.0.7'
+gem 'bootstrap-will_paginate',  '0.0.10'
 # Convert bootstrap less files to sass
 gem 'bootstrap-sass',   '3.2.0.0'
 # Use SCSS for stylesheets
@@ -25,6 +30,7 @@ gem 'sdoc', 		'0.4.0', group: :doc
 group :development do
   gem 'guard-livereload', '2.3.0'
   gem 'rack-livereload'
+  gem 'annotate'
 end
 
 group :development, :test do
