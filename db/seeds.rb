@@ -5,6 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Adding users
 User.create!(name:    'Example User',
              email:   'example@railstutorial.org',
              password:              'foobar',
@@ -23,4 +25,11 @@ User.create!(name:    'Example User',
                password_confirmation: password,
                activated: true,
                activated_at: Time.zone.now)
+end
+
+# Creating 50 microposts for the first 6 users
+users = User.order(:created_at).take(6)
+50.times do
+  content = Faker::Lorem.sentence(5)
+  users.each { |user| user.microposts.create!(content: content) }
 end
