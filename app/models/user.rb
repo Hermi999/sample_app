@@ -13,9 +13,14 @@
 #  activation_digest :string
 #  activated         :boolean          default("f")
 #  activated_at      :datetime
+#  reset_digest      :string
+#  reset_sent_at     :datetime
 #
 
 class User < ActiveRecord::Base
+  # Micropost association
+  has_many :microposts, dependent: :destroy
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i    # constant
   # VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+[.][a-z]+\z/i
 

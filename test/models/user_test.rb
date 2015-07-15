@@ -13,6 +13,8 @@
 #  activation_digest :string
 #  activated         :boolean          default("f")
 #  activated_at      :datetime
+#  reset_digest      :string
+#  reset_sent_at     :datetime
 #
 
 require 'test_helper'
@@ -92,5 +94,18 @@ class UserTest < ActiveSupport::TestCase
 
   test 'authenticated? should return false for a user with nil digest' do
     assert_not @user.authenticated?(:remember, '')
+  end
+
+  test 'associated microposts should be destroyed' do
+    # save user in db
+    @user.save
+    # create 2 new micropost and store it also in db
+    @user.microposts.create!(content: 'Test-Post')
+    @user.microposts.create!(content: 'Hallo Welt')
+    # Delete user and see if the absolut number of microposts is decreasing
+    # by the with the user associated number of posts (2)
+    assert_difference 'Micropost.count', -2 do
+      @user.destroy
+    end
   end
 end
