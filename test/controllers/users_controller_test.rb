@@ -57,4 +57,13 @@ class UsersControllerTest < ActionController::TestCase
     end
     assert_redirected_to root_url
   end
+
+  test 'should not be possible to change the admin attribute @ editing' do
+    log_in_as @other_user
+    assert_not @other_user.admin?
+    patch :update, id: @other_user, user: { name: 'test',
+                                            email: 'email@a.at',
+                                            admin: true }
+    assert_not @other_user.admin?
+  end
 end
