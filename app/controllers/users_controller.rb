@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   # Action for showing all the registered users on one page (with pagination)
   def index
     # params[:page] ... is generated automatically by will_paginate
-    @users = User.paginate(page: params[:page])
+    @users = User.where(activated: true).paginate(page: params[:page])
   end
 
   # Remove user from database - only for admins!
@@ -26,6 +26,7 @@ class UsersController < ApplicationController
   # the URL:  '.../users/:id'
   def show
     @user = User.find(params[:id])
+    redirect_to root_url and return unless @user.activated?
   end
 
   # Action for showing the 'new' view with the signup form. User fills out the

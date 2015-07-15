@@ -43,6 +43,14 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     log_in_as(user)
     assert_not is_logged_in?
 
+    # Log in as another valid, activated user
+    log_in_as(users(:hermann))
+    # Now try to access the un-activated users page
+    get user_path(user)
+    assert_redirected_to root_url
+    # Logout the activated user
+    delete logout_path
+
     # Invalid activation token
     get edit_account_activation_path('invalid token')
     assert_not is_logged_in?
