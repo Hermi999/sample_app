@@ -33,7 +33,7 @@ module SessionsHelper
       user = User.find_by(id: user_id)
       # if there exists a user with this id, then check if remember_token
       # matches the hashed one in the databse. If yes, then log the user in.
-      if user && user.authenticated?(cookies[:remember_token])
+      if user && user.authenticated?(:remember, cookies[:remember_token])
         log_in user
         @current_user = user
       end

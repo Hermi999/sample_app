@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   # DELETE /users/id    destroy   user_path(user) delete user
   resources :users
 
-
+  resources :account_activation, only: [:edit]
 
 
   # The priority is based upon order of creation: first created -> highest priority.

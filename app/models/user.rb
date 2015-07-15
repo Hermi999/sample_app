@@ -2,25 +2,34 @@
 #
 # Table name: users
 #
-#  id              :integer          not null, primary key
-#  name            :string
-#  email           :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  password_digest :string
-#  remember_digest :string
-#  admin           :boolean          default("f")
+#  id                :integer          not null, primary key
+#  name              :string
+#  email             :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  password_digest   :string
+#  remember_digest   :string
+#  admin             :boolean          default("f")
+#  activation_digest :string
+#  activated         :boolean          default("f")
+#  activated_at      :datetime
 #
 
 class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i    # constant
   # VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+[.][a-z]+\z/i
 
-  attr_accessor :remember_token
+  # Getter & Setters for 'virtual User variables'
+  # (those who are not saved in the database, but are assigned to User class)
+  attr_accessor :remember_token, :activation_token
 
-  before_save { self.email = email.downcase }   # self keyword is optional
-                                                # on right-hand side
+  # Callbacks which are called before something happens with the Object.
+  # The callbacks get either a block or a method reference as argument
+  before_save :downcase_email
+  before_create :create_activation_digest
 
+  # Validations of the user object which should be saved in the database.
+  # A validation error results in a rollback
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true,
                     length: { maximum: 255 },
@@ -45,6 +54,8 @@ class User < ActiveRecord::Base
     end
   end
 
+
+
   # Creates a ramdom token and stores it in the database for use in
   # persistent sessions
   def remember
@@ -56,13 +67,39 @@ class User < ActiveRecord::Base
   end
 
   # Returns true if the given token matches the digest
-  def authenticated?(remember_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
   # Forgets a user (if he is remembered) by setting db-field to nil
   def forget
     update_attribute :remember_digest, nil
   end
+
+  # Activates an account
+  def activate
+    update_attribute :activated, true
+    update_attribute :activated_at, Time.zone.now
+  end
+
+  # Send activation email
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
+
+
+  private
+    # Converts emil to all lower-case
+    def downcase_email
+      self.email = email.downcase
+    end
+
+    # Creates and assigns the activation token & digest
+    def create_activation_digest
+      self.activation_token = User.new_token
+      self.activation_digest = User.digest(activation_token)
+    end
 end
