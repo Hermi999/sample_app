@@ -9,6 +9,7 @@
 #  updated_at      :datetime         not null
 #  password_digest :string
 #  remember_digest :string
+#  admin           :boolean          default("f")
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
