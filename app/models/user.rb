@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
   # Getter & Setters for 'virtual User variables'
   # (those who are not saved in the database, but are assigned to User class)
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
 
   # Callbacks which are called before something happens with the Object.
   # The callbacks get either a block or a method reference as argument
@@ -89,7 +89,23 @@ class User < ActiveRecord::Base
     UserMailer.account_activation(self).deliver_now
   end
 
+  # Sets the password reset attributes
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
 
+  end
+
+  # Sends a password reset mail
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  # Is Passwort reset time expired?
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
 
   private
     # Converts emil to all lower-case
