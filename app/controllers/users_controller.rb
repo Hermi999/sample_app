@@ -87,15 +87,6 @@ class UsersController < ApplicationController
                                     :password, :password_confirmation)
     end
 
-    # Verify if a user is logged in. Otherwise redirect.
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = 'Please log in first!'
-        redirect_to login_url
-      end
-    end
-
     # Verify if user who want's to access the page, is the logged-in user
     # Otherwise redirect.
     def correct_user

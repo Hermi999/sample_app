@@ -14,7 +14,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
 
     i = 1
     unact = 0
-    until (page_of_users = User.paginate(page: i)).nil?
+    until (page_of_users = User.paginate(page: i)).empty?
       # Go to next page
       get users_path, page: i
 
