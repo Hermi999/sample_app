@@ -98,7 +98,6 @@ class User < ActiveRecord::Base
     self.reset_token = User.new_token
     update_columns(reset_digest: User.digest(reset_token),
                    reset_sent_at: Time.zone.now)
-
   end
 
   # Sends a password reset mail
@@ -110,6 +109,11 @@ class User < ActiveRecord::Base
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
   end
+
+  def feed
+    Micropost.where('user_id = ?', id)
+  end
+
 
   private
     # Converts emil to all lower-case
