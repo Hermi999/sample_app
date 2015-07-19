@@ -18,11 +18,25 @@
 #
 
 class User < ActiveRecord::Base
-  # Micropost association
+# Associations
   has_many :microposts, dependent: :destroy
 
+  # Benutzer denen der User folgt
+  # active_relationships ... Association auf die Zwischentabelle
+  # following ... Association auf den Benutzer der gefollowed wird
+  has_many :active_relationships, class_name:   'Relationship',
+                                  foreign_key:  'follower_id',
+                                  dependent:    :destroy
+  has_many :following, through: :active_relationships, source: :followed
+
+  # Benutzer die den User folgen
+  has_many :passive_relationships, class_name:  'Relationship',
+                                   foreign_key: 'followed_id',
+                                   dependent:   :destroy
+  has_many :followers, through: :passive_relationships, source: :follower
+
+  # RegEx für Email Validation
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i    # constant
-  # VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+[.][a-z]+\z/i
 
   # Getter & Setters for 'virtual User variables'
   # (those who are not saved in the database, but are assigned to User class)
@@ -110,8 +124,27 @@ class User < ActiveRecord::Base
     reset_sent_at < 2.hours.ago
   end
 
+  # get all the microposts associated with the user
   def feed
-    Micropost.where('user_id = ?', id)
+    following_ids = 'SELECT followed_id FROM relationships
+                     WHERE follower_id = :user_id'
+    Micropost.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id)
+  end
+
+  # Following a user
+  def follow(other_user)
+    active_relationships.create(followed_id: other_user.id)
+  end
+
+  # Unfollow a user
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id).destroy
+  end
+
+  # Check if a other user is followed
+  def following?(other_user)
+    following.include?(other_user)
   end
 
 

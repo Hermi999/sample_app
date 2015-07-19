@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   get 'password_resets/new'
 
-  get 'users/new'
-
   # Maps a get request to  / to the "home" action in the StaticPages
   # Controller (file: /app/controllers/static_pages_controller.rb)
   root 'static_pages#home'
@@ -34,13 +32,26 @@ Rails.application.routes.draw do
   # GET  /users/id/edit edit      edit_user_path(user)  edit user with id=x
   # PATCH /users/id     update    user_path(user) update user
   # DELETE /users/id    destroy   user_path(user) delete user
-  resources :users
+  resources :users do
+    # Routes for Following and Followers
+    # The member method arranges for the routes to respond to URLs
+    # containing the user id.
+    # -> /users/[id]/following -> following_user_path([id])
+    # -> /users/[id]/followers -> followers_user_path([id])
+    # a collection would respond to: /users/followers & would display all followers
+    member do
+      get :following, :followers
+    end
+  end
 
-  resources :account_activation, only: [:edit]
+  resources :account_activation,  only: [:edit]
 
-  resources :password_resets, only: [:new, :create, :edit, :update]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
 
-  resources :microposts, only: [:create, :destroy]
+  resources :microposts,          only: [:create, :destroy]
+
+  resources :relationships,       only: [:create, :destroy]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

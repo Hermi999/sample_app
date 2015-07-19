@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   # Before filters:
   # Restrict actions which are only for a logged in user
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy,
+                                        :following, :followers]
 
   # Restrict action which are only for the correct user and not for other users
   before_action :correct_user, only: [:edit, :update]
@@ -74,6 +75,23 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  # Action for displaying all other users which are followed by a logged in
+  # user.
+  def following
+    @title = 'Following'
+    @user = User.find(params[:id])
+    @users = @user.following.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  # Action for displaying all other users which are following a logged in user
+  def followers
+    @title = 'Followers'
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
   end
 
   # Private Methods
