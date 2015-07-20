@@ -20,4 +20,26 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  acount_activated: 'Account activated!'
+  invalid_activation_link: 'Invalid activation link!'
+  login_first: 'Please log in first!'
+  new_micropost: 'New Micropost created!'
+  micropost_deleted: 'Micropost deleted'
+  email_password_reseted: 'Email sent with password reset instructions'
+  email_not_found: 'Email address not found'
+  password_cant_be_empty: 'Password can not be empty!'
+  password_reseted: 'Password has been reset.'
+  invalid_password_reset_url: 'Invalid Password reset URL!'
+  password_reset_expired: 'Password reset has expired'
+  account_not_activated_1: 'Account not activated! '
+  account_not_activated_2: 'Check your email for the activation link.'
+  invalid_email_password: 'Invalid email/password combination'
+  user_deleted: 'User deleted'
+  check_email_to_activate_account: 'Please check your email to activate your account!'
+  updated_data_successfully: 'Updated your data successfully!'
+  title_following: 'Following'
+  title_followers: 'Followers'
+  base_title: 'Ruby on Rails Tutorial Sample App'
+  email_account_activation_subject: 'Account activation'
+  email_password_reset: 'Password reset'
+  max_picture_size: 'should be less than 5MB'

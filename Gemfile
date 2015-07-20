@@ -31,6 +31,9 @@ gem 'jbuilder', 	'2.2.3'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', 		'0.4.0', group: :doc
 
+# Gem for internationalization
+# gem 'rails-i18n', '~> 3.0.0' # For 3.x
+
 group :development do
   gem 'guard-livereload', '2.3.0'
   gem 'rack-livereload'

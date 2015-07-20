@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   # Remove user from database - only for admins!
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = 'User deleted'
+    flash[:success] = t(:user_deleted)
     redirect_to users_url
   end
 
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       @user.send_activation_email
-      flash[:info] = 'Please check your email to activate your account!'
+      flash[:info] = t(:check_email_to_activate_account)
       redirect_to root_url
     else
       render 'new'
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = 'Updated your data successfully!'
+      flash[:success] = t(:updated_data_successfully)
       redirect_to @user   # = redirect_to user_url(@user)
     else
       render 'edit'
@@ -80,7 +80,7 @@ class UsersController < ApplicationController
   # Action for displaying all other users which are followed by a logged in
   # user.
   def following
-    @title = 'Following'
+    @title = t(:title_following)
     @user = User.find(params[:id])
     @users = @user.following.paginate(page: params[:page])
     render 'show_follow'
@@ -88,7 +88,7 @@ class UsersController < ApplicationController
 
   # Action for displaying all other users which are following a logged in user
   def followers
-    @title = 'Followers'
+    @title = t(:title_followers)
     @user = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
