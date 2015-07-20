@@ -18,3 +18,43 @@ de:
   updated_data_successfully: 'Daten erfolgreich geändert!'
   title_following: 'Sie folgen'
   title_followers: 'Ihnen folgen'
+  base_title: 'Ruby on Rails Tutorial Beispiel Applikation'
+  email_account_activation_subject: 'Konto Aktivierung'
+  email_password_reset: 'Passwort zurücksetzen'
+  max_picture_size: 'muss kleiner als 5MB sein'
+  link_sample_app: "Beispiel Applikation"
+  link_home: "Home"
+  link_help: "Hilfe"
+  link_users: "Benutzer"
+  link_profile: 'Profile'
+  link_settings: 'Einstellungen'
+  link_logout: 'Ausloggen'
+  link_login: "Einloggen"
+  are_you_sure: "Sind Sie sicher?"
+  update_password: "Passwort ändern"
+  title_reset_password: 'Passwort zurücksetzen'
+  password_confirmation: "Bestätigung"
+  title_forget_password: "Passwort vergessen"
+  btn_submit: "Bestätigen"
+  title_login: "Einloggen"
+  btn_login: 'Ausloggen'
+  link_signup_now: "Jetzt registrieren!"
+  link_forgot_pass: '(Passwort vergessen?)'
+  welcome: 'Willkommen zur Beispiel Applikation'
+  welcome_description: 'Das ist die Website für die'
+  link_rails_tutorial: 'Ruby on Rails Tutorial'
+  welcome1: 'Beispiel Applikation.'
+  placeholder_new_micropost: "Erstellen neuen Minipost..."
+  alert_file_size: 'Maximale Dateigröße beträgt 5MB. Bitte verwende eine kleinere Datei.'
+  link_to_profile: "zeige mein Profil"
+  title_about: "Über uns"
+  about_h1: "Über uns"
+  about_p1_1: 'Das'
+  about_p1_2: 'Ruby on Rails Tutorial'
+  about_p1_2_1: 'ist ein'
+  about_p1_3: 'Buch'
+  about_p1_4: 'und'
+  about_p1_5: 'Screencast Series'
+  about_p1_6: 'zum Erlenen wie man Webapplikationen mit'
+  about_p1_7: 'Ruby on Rails erstellt.'
+  about_p1_8: 'Dies ist die Beispiel Applikation für das Tutorial.'

@@ -68,3 +68,15 @@ en:
   placeholder_new_micropost: "Compose new micropost..."
   alert_file_size: 'Maximum file size is 5MB. Please choose a smaller file.'
   link_to_profile: "view my profile"
+  title_about: "About"
+  about_h1: "About"
+  about_p1_1: 'The'
+  about_p1_2: 'Ruby on Rails Tutorial'
+  about_p1_2_1: 'is a'
+  about_p1_3: 'book'
+  about_p1_4: 'and'
+  about_p1_5: 'screencast series'
+  about_p1_6: 'to teach web development with'
+  about_p1_7: 'Ruby on Rails.'
+  about_p1_8: 'This is the sample application for the tutorial.'
+
