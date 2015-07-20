@@ -1,20 +1,20 @@
 %header.navbar.navbar-fixed-top.navbar-inverse
   .container
-    = link_to "sample app", root_path, id: "logo"
+    = link_to t(:link_sample_app), root_path, id: "logo"
     %nav
       %ul.nav.navbar-nav.navbar-right
-        %li= link_to "Home", root_path
-        %li= link_to "Help", help_path
+        %li= link_to t(:link_home), root_path
+        %li= link_to t(:link_help), help_path
         - if logged_in?
-          %li= link_to "Users", users_path
+          %li= link_to t(:link_users), users_path
           %li.dropdown
             %a.Dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
               Account
               %b.caret
             %ul.dropdown-menu
-              %li= link_to 'Profile', current_user
-              %li= link_to 'Settings', edit_user_path(current_user)
+              %li= link_to t(:link_profile), current_user
+              %li= link_to t(:link_settings), edit_user_path(current_user)
               %li.divider
-              %li= link_to 'Log out', logout_path, method: 'delete'
+              %li= link_to t(:link_logout), logout_path, method: 'delete'
         - else
-          %li= link_to "Log in", login_path
+          %li= link_to t(:link_login), login_path

@@ -43,3 +43,28 @@ en:
   email_account_activation_subject: 'Account activation'
   email_password_reset: 'Password reset'
   max_picture_size: 'should be less than 5MB'
+  link_sample_app: "sample app"
+  link_home: "Home"
+  link_help: "Help"
+  link_users: "Users"
+  link_profile: 'Profile'
+  link_settings: 'Settings'
+  link_logout: 'Log out'
+  link_login: "Log in"
+  are_you_sure: "You sure?"
+  update_password: "Update password"
+  title_reset_password: 'Reset password'
+  password_confirmation: "Confirmation"
+  title_forget_password: "Forgot password"
+  btn_submit: "Submit"
+  title_login: "Log in"
+  btn_login: 'Log in'
+  link_signup_now: "Sign up now!"
+  link_forgot_pass: '(forgot password)'
+  welcome: 'Welcome to the Sample App'
+  welcome_description: 'This is the home page for the'
+  link_rails_tutorial: 'Ruby on Rails Tutorial'
+  welcome1: 'sample application.'
+  placeholder_new_micropost: "Compose new micropost..."
+  alert_file_size: 'Maximum file size is 5MB. Please choose a smaller file.'
+  link_to_profile: "view my profile"
