@@ -43,7 +43,8 @@ de:
   welcome: 'Willkommen zur Beispiel Applikation'
   welcome_description: 'Das ist die Website für die'
   link_rails_tutorial: 'Ruby on Rails Tutorial'
-  welcome1: 'Beispiel Applikation.'
+  welcome1: 'Das ist die Webseite für die'
+  welcome2: 'Beispiel Applikation.'
   placeholder_new_micropost: "Erstellen neuen Minipost..."
   alert_file_size: 'Maximale Dateigröße beträgt 5MB. Bitte verwende eine kleinere Datei.'
   link_to_profile: "zeige mein Profil"

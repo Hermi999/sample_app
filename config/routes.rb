@@ -1,56 +1,64 @@
 Rails.application.routes.draw do
-  get 'password_resets/new'
+  #scope ':locale', locale: /en|de/ do
+  scope ':locale', locale: /#{I18n.available_locales.join("|")}/ do
+    get 'password_resets/new'
 
-  # Maps a get request to  / to the "home" action in the StaticPages
-  # Controller (file: /app/controllers/static_pages_controller.rb)
-  root 'static_pages#home'
+    # Maps a get request to  / to the "home" action in the StaticPages
+    # Controller (file: /app/controllers/static_pages_controller.rb)
+    root 'static_pages#home'
 
-  # Maps a get request to  /help to the "help" action in the
-  # StaticPages Controller (file: /app/controllers/static_pages_controller.rb)
-  get 'help' => 'static_pages#help'
+    # Maps a get request to  /help to the "help" action in the
+    # StaticPages Controller (file: /app/controllers/static_pages_controller.rb)
+    get 'help' => 'static_pages#help'
 
-  get 'about' => 'static_pages#about'
+    get 'about' => 'static_pages#about'
 
-  get 'contact' => 'static_pages#contact'
+    get 'contact' => 'static_pages#contact'
 
-  get 'signup' => 'users#new'
+    get 'signup' => 'users#new'
 
-  # While with 'resources :users' all Rest-Routes are created (see below),
-  # we need for the Session resource only a subset of named routes
-  get    'login'  => 'sessions#new'       # page for a new session (login form)
-  post   'login'  => 'sessions#create'    # create a new session (login)
-  delete 'logout' => 'sessions#destroy'   # delete a session (log out)
+    # While with 'resources :users' all Rest-Routes are created (see below),
+    # we need for the Session resource only a subset of named routes
+    get    'login'  => 'sessions#new'       # page for a new session (login form)
+    post   'login'  => 'sessions#create'    # create a new session (login)
+    delete 'logout' => 'sessions#destroy'   # delete a session (log out)
 
-  # Ressources Method adds all actions and routes needed for RESTful Users
-  # ressurce:
-  # HTTP-Request        Action    Route           Purpuse
-  # ---------------------------------------------------------------------------
-  # GET /users          index     users_path      page to list all users
-  # GET /users/id       show      user_path(user) page to show a user
-  # Get /users/new      new       new_user_path   page to make a new user (=signup)
-  # POST /users         create    users_path      create a new user
-  # GET  /users/id/edit edit      edit_user_path(user)  edit user with id=x
-  # PATCH /users/id     update    user_path(user) update user
-  # DELETE /users/id    destroy   user_path(user) delete user
-  resources :users do
-    # Routes for Following and Followers
-    # The member method arranges for the routes to respond to URLs
-    # containing the user id.
-    # -> /users/[id]/following -> following_user_path([id])
-    # -> /users/[id]/followers -> followers_user_path([id])
-    # a collection would respond to: /users/followers & would display all followers
-    member do
-      get :following, :followers
+    # Ressources Method adds all actions and routes needed for RESTful Users
+    # ressurce:
+    # HTTP-Request        Action    Route           Purpuse
+    # ---------------------------------------------------------------------------
+    # GET /users          index     users_path      page to list all users
+    # GET /users/id       show      user_path(user) page to show a user
+    # Get /users/new      new       new_user_path   page to make a new user (=signup)
+    # POST /users         create    users_path      create a new user
+    # GET  /users/id/edit edit      edit_user_path(user)  edit user with id=x
+    # PATCH /users/id     update    user_path(user) update user
+    # DELETE /users/id    destroy   user_path(user) delete user
+    resources :users do
+      # Routes for Following and Followers
+      # The member method arranges for the routes to respond to URLs
+      # containing the user id.
+      # -> /users/[id]/following -> following_user_path([id])
+      # -> /users/[id]/followers -> followers_user_path([id])
+      # a collection would respond to: /users/followers & would display all followers
+      member do
+        get :following, :followers
+      end
     end
+
+    resources :account_activation,  only: [:edit]
+
+    resources :password_resets,     only: [:new, :create, :edit, :update]
+
+    resources :microposts,          only: [:create, :destroy]
+
+    resources :relationships,       only: [:create, :destroy]
   end
 
-  resources :account_activation,  only: [:edit]
-
-  resources :password_resets,     only: [:new, :create, :edit, :update]
-
-  resources :microposts,          only: [:create, :destroy]
-
-  resources :relationships,       only: [:create, :destroy]
+  # If non of the available locales is choosen, then redirect
+  get '*path', to: redirect("/#{I18n.default_locale}/%{path}")
+  # Do the same for root path
+  get '', to: redirect("/#{I18n.default_locale}")
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

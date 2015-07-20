@@ -3,6 +3,9 @@
     = link_to t(:link_sample_app), root_path, id: "logo"
     %nav
       %ul.nav.navbar-nav.navbar-right
+        %li= link_to 'de', locale: "de"
+        %li= link_to 'en', locale: "en"
+        %li= link_to '|', '#'
         %li= link_to t(:link_home), root_path
         %li= link_to t(:link_help), help_path
         - if logged_in?

@@ -64,7 +64,8 @@ en:
   welcome: 'Welcome to the Sample App'
   welcome_description: 'This is the home page for the'
   link_rails_tutorial: 'Ruby on Rails Tutorial'
-  welcome1: 'sample application.'
+  welcome1: 'This is the home page for the'
+  welcome2: 'sample application.'
   placeholder_new_micropost: "Compose new micropost..."
   alert_file_size: 'Maximum file size is 5MB. Please choose a smaller file.'
   link_to_profile: "view my profile"
