@@ -5,13 +5,20 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
 
+  before_action :set_locale
+
   private
     # Verify if a user is logged in. Otherwise redirect.
       def logged_in_user
         unless logged_in?
           store_location
-          flash[:danger] = 'Please log in first!'
+          flash[:danger] = t(:login_first)
           redirect_to login_url
         end
       end
+
+    # Set language based on url
+    def set_locale
+      I18n.locale = params[:locale] || I18n.default_locale
+    end
 end
